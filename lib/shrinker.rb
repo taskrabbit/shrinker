@@ -1,7 +1,9 @@
 require "shrinker/version"
+require "json"
 
 module Shrinker
-  autoload :Config, 'shrinker/config'
+  autoload :Config,     'shrinker/config'
+  autoload :Serializer, 'shrinker/serializer'
 
   module Backend
     autoload :Abstract, 'shrinker/backend/abstract'
