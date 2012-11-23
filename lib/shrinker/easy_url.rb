@@ -1,5 +1,5 @@
 module Shrinker
-  class EasyUrl < Struct.new(:url)
+  class EasyUrl < Struct.new(:url, :attributes)
     require 'cgi'
 
     def to_s
