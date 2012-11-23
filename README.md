@@ -21,7 +21,7 @@ Or install it yourself as:
 
     Shrinker.configure do
       backend 'Redis'
-      backend_options port: 6388, address: '192.168.12.22'
+      backend_options port: 6388, host: '192.168.12.22'
       expanded_domain /www.google.com/
       shrinked_domain 'go.com'
     end
