@@ -42,7 +42,7 @@ With a MIME:
 
 Get back a real link:
 
-    url = Shrinker::Extractor::unshrink(token)
+    url = Shrinker::unshrink(token)
     url.to_s # => 'google.com/something=true'
     url.attributes['user_id'] # => 123
     url.attributes['url']     # => 'google.com/something=true'
