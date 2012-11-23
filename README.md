@@ -1,6 +1,6 @@
 # Shrinker
 
-TODO: Write a gem description
+Replace all occurence of a domain and create a shortened link using a token.
 
 ## Installation
 
@@ -18,7 +18,32 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+
+    Shrinker.configure do
+      backend 'Redis'
+      backend_options port: 6388, address: '192.168.12.22'
+      expanded_domain /www.google.com/
+      shrinked_domain 'go.com'
+    end
+
+Not shrinking a link
+
+    www.google.com?shrinker=false&something=else 
+
+    would be replaced by www.google.com?something=else
+
+Usage on a text:
+
+    new_text = Shrinker::Parser::Text.replace(text, {:user_id => 123})
+
+With a MIME:
+
+    new_mime = Shrinker::Parser::MIME.replace(mime, {:user_id => 123})
+
+Get back a real link:
+
+    url = TaskRabbit::Shortener::Url.find(token)
+    url.attributes[:user_id] # => 123
 
 ## Contributing
 
