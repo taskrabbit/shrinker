@@ -12,6 +12,7 @@ module Shrinker
 
   module Parser
     autoload :Abstract, 'shrinker/parser/abstract'
+    autoload :Text,     'shrinker/parser/text'
   end
 
   class << self
