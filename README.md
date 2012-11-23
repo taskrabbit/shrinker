@@ -19,33 +19,37 @@ Or install it yourself as:
 ## Usage
 
 
-    Shrinker.configure do
-      backend 'Redis'
-      backend_options client: {port: 6388, host: '192.168.12.22'}
-      expanded_domain /www.google.com/
-      shrinked_domain 'go.com'
-    end
+```ruby
+Shrinker.configure do
+  backend 'Redis'
+  backend_options client: {port: 6388, host: '192.168.12.22'}
+  expanded_domain /www.google.com/ # this also works with protocol
+  shrinked_domain 'go.com'
+end
+```
 
-Not shrinking a link
-
-    www.google.com?shrinker=false&something=else 
-
-    would be replaced by www.google.com?something=else
+Not shrinking a link `www.google.com?shrinker=false&something=else` would be replaced by `www.google.com?something=else`.
 
 Usage on a text:
 
-    new_text = Shrinker::Parser::Text.replace(text, {:user_id => 123})
+```ruby
+new_text = Shrinker::Parser::Text.replace(text, {:user_id => 123})
+```
 
 With a MIME:
 
-    new_mime = Shrinker::Parser::Mime.replace(mime, {:user_id => 123})
+```ruby
+new_mime = Shrinker::Parser::Mime.replace(mime, {:user_id => 123})
+```
 
 Get back a real link:
 
-    url = Shrinker::unshrink(token)
-    url.to_s # => 'google.com/something=true'
-    url.attributes['user_id'] # => 123
-    url.attributes['url']     # => 'google.com/something=true'
+```ruby
+url = Shrinker::unshrink(token)
+url.to_s # => 'http://google.com/something=true'
+url.attributes['user_id'] # => 123
+url.attributes['url']     # => 'http://google.com/something=true'
+```
 
 ## Contributing
 
