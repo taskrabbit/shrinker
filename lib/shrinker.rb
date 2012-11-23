@@ -10,6 +10,10 @@ module Shrinker
     autoload :Redis,    'shrinker/backend/redis'
   end
 
+  module Parser
+    autoload :Abstract, 'shrinker/parser/abstract'
+  end
+
   class << self
     def configure(&block)
       if block_given?
