@@ -38,12 +38,14 @@ Usage on a text:
 
 With a MIME:
 
-    new_mime = Shrinker::Parser::MIME.replace(mime, {:user_id => 123})
+    new_mime = Shrinker::Parser::Mime.replace(mime, {:user_id => 123})
 
 Get back a real link:
 
-    url = TaskRabbit::Shortener::Url.find(token)
-    url.attributes[:user_id] # => 123
+    url = Shrinker::Extractor::unshrink(token)
+    url.to_s # => 'google.com/something=true'
+    url.attributes['user_id'] # => 123
+    url.attributes['url']     # => 'google.com/something=true'
 
 ## Contributing
 
