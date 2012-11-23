@@ -34,5 +34,12 @@ module Shrinker
         self.instance_variable_set(var, nil)
       end
     end
+
+    def backend_instance
+      @backend_instance ||= begin
+        class_name = (backend || 'Abstract').to_s
+        ::Shrinker::Backend.const_get(class_name).new(backend_options || {})
+      end
+    end
   end
 end

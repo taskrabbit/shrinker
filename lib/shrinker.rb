@@ -26,10 +26,7 @@ module Shrinker
     end
 
     def backend
-      @backend ||= begin
-        class_name = (self.config.backend || 'Abstract').to_s
-        Backend.const_get(class_name).new(self.config.backend_options || {})
-      end
+      config.backend_instance
     end
   end
 end
