@@ -53,4 +53,10 @@ describe Shrinker::Parser::Text do
       replaced_text.should == content
     end
   end
+
+  describe "#config" do
+    it "returns the default config by default" do
+      Shrinker::Parser::Text.new.send(:config).should == Shrinker.config
+    end
+  end
 end

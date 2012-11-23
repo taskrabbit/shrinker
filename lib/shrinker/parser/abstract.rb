@@ -25,7 +25,7 @@ module Shrinker
       end
 
       def backend
-        config.backend_instance      
+        config.backend_instance
       end
 
       def config
