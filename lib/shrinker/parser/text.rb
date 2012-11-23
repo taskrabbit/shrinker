@@ -10,7 +10,7 @@ module Shrinker
       protected
 
       def shrink_url(url)
-        Url::replace(url, options, config)
+        Url::replace(url, attributes, config)
       end
     end
   end
