@@ -4,6 +4,8 @@ require "json"
 module Shrinker
   autoload :Config,     'shrinker/config'
   autoload :Serializer, 'shrinker/serializer'
+  autoload :EasyUrl,    'shrinker/easy_url'
+  autoload :Token,      'shrinker/token'
 
   module Backend
     autoload :Abstract, 'shrinker/backend/abstract'
