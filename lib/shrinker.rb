@@ -7,6 +7,7 @@ module Shrinker
 
   module Backend
     autoload :Abstract, 'shrinker/backend/abstract'
+    autoload :Redis,    'shrinker/backend/redis'
   end
 
   class << self
