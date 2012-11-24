@@ -1,6 +1,6 @@
 module Shrinker
   class Extractor < Struct.new(:token, :config)
-    UrlNotFound = ArgumentError.new
+    class UrlNotFound < ArgumentError; end;
 
     def self.unshrink(token, config = nil)
       self.new(token, config).unshrink
@@ -8,9 +8,8 @@ module Shrinker
 
     def unshrink
       stored_content = backend.fetch(token)
-      if stored_content == {}
-        raise UrlNotFound
-      end
+      raise UrlNotFound.new("Cannot find the url with token: #{token}") if stored_content == {}
+
       EasyUrl.new(stored_content['url'], stored_content['attributes'] || {})
     end
 
