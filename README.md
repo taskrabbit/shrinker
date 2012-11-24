@@ -33,7 +33,29 @@ Not shrinking a link `www.google.com?shrinker=false&something=else` would be rep
 Usage on a text:
 
 ```ruby
+
+text = <<-EV
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+  Nunc quis rutrum http://www.google.com?something=true&else=false dolor. 
+  Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+  Curabitur ullamcorper nisl non dolor http://google.fr?something=true venenatis consequat.
+  Morbi odio libero, tincidunt quis tempus a, fringilla vitae augue.
+  http://google.com/somepath?something=true
+  Aenean placerat ullamcorper lorem vel feugiat.
+EV
+
+
 new_text = Shrinker::Parser::Text.replace(text, {:user_id => 123})
+
+new_text # => 
+# Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+# Nunc quis rutrum http://replace1 dolor. 
+# Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
+# Curabitur ullamcorper nisl non dolor http://google.fr?something=true venenatis consequat.
+# Morbi odio libero, tincidunt quis tempus a, fringilla vitae augue.
+# http://replace2
+# Aenean placerat ullamcorper lorem vel feugiat.
+
 ```
 
 With a MIME:
