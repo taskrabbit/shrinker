@@ -17,6 +17,7 @@ module Shrinker
     autoload :Abstract, 'shrinker/parser/abstract'
     autoload :Url,      'shrinker/parser/url'
     autoload :Text,     'shrinker/parser/text'
+    autoload :Mime,     'shrinker/parser/mime'
   end
 
   class << self

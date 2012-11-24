@@ -6,3 +6,4 @@ gemspec
 gem 'rspec'
 gem 'debugger'
 gem 'redis'
+gem 'mail'
