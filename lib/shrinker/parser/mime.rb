@@ -5,7 +5,12 @@ module Shrinker
 
       def replace
         [email, email.all_parts].flatten.compact.each do |part|
-          part.body = Text::replace(part.body.decoded, attributes, config)
+          new_body  = Text::replace(part.body.decoded, attributes, config)
+          part.body = if part.content_transfer_encoding
+                        Mail::Body.new(new_body).encoded(part.content_transfer_encoding)
+                      else
+                        new_body.to_s
+                      end
         end
         email.to_s
       end
