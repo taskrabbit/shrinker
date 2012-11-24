@@ -39,8 +39,9 @@ module Shrinker
       end
 
       def clear!(pattern = nil)
-        keys = client.keys("#{@namespace}::#{pattern || '*'}")
-        client.del(*keys)
+        client.keys("#{@namespace}::#{pattern || '*'}").each do |key|
+          client.del(key)
+        end
       end
 
       def key(token)
