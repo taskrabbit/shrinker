@@ -30,17 +30,13 @@ module Shrinker
     alias_method :config, :configure
 
     def unshrink(token)
-      extractor.unshrink(token)
+      Shrinker::Extractor::unshrink(token, config)
     end
 
     protected
 
     def configuration
       @configuration ||= ::Shrinker::Config.new
-    end
-
-    def extractor
-      @extractor     ||= ::Shrinker::Extractor.new(config)
     end
 
     def backend
