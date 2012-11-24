@@ -6,7 +6,7 @@ module Shrinker
         self.new(content, attributes, config).replace
       end
 
-      def replace(content, attributes = {}, config = nil)
+      def replace
         raise NotImplemented
       end
 
