@@ -70,7 +70,6 @@ Get back a real link:
 url = Shrinker::unshrink(token)
 url.to_s # => 'http://google.com/something=true'
 url.attributes['user_id'] # => 123
-url.attributes['url']     # => 'http://google.com/something=true'
 ```
 
 ## Contributing
