@@ -11,7 +11,7 @@ module Shrinker
       if stored_content == {}
         raise UrlNotFound
       end
-      EasyUrl.new(stored_content['url'], stored_content)
+      EasyUrl.new(stored_content['url'], stored_content['attributes'] || {})
     end
 
     protected

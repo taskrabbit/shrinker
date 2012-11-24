@@ -13,13 +13,13 @@ describe Shrinker::Extractor do
 
     let(:client) { Redis.new }
 
-    before { client.set("_shrinker::token", '{"url": "someurl", "attributes": {}}') }
+    before { client.set("_shrinker::token", '{"url": "someurl", "attributes": {"test": "ab"}}') }
 
     it "returns an EasyUrl instance" do
       easy_url = Shrinker::Extractor.unshrink("token", config)
       easy_url.should be_instance_of(Shrinker::EasyUrl)
       easy_url.to_s.should       == "someurl"
-      easy_url.attributes.should == {'url' => "someurl", 'attributes' => {}}
+      easy_url.attributes.should == {"test" => 'ab'}
     end
 
     it "raise UrlNotFound when not existing" do
