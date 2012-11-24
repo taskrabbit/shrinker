@@ -49,11 +49,11 @@ new_text = Shrinker::Parser::Text.replace(text, {:user_id => 123})
 
 new_text # => 
 # Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-# Nunc quis rutrum http://replace1 dolor. 
+# Nunc quis rutrum http://go.com/token1 dolor. 
 # Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
 # Curabitur ullamcorper nisl non dolor http://google.fr?something=true venenatis consequat.
 # Morbi odio libero, tincidunt quis tempus a, fringilla vitae augue.
-# http://replace2
+# http://go.com/token2
 # Aenean placerat ullamcorper lorem vel feugiat.
 
 ```
