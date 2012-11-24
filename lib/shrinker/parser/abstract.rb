@@ -16,6 +16,10 @@ module Shrinker
         /(#{expanded_domain}[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[-A-Z0-9+&@#\/%=~_|$])/i
       end
 
+      def excluded_regex
+        config.exclude
+      end
+
       def expanded_domain
         config.expanded_domain
       end

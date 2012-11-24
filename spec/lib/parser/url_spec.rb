@@ -10,6 +10,7 @@ describe Shrinker::Parser::Url do
         config.instance_eval do
           backend         'Redis'
           expanded_domain /(www\.)?google.com/
+          exclude /images|assets/
           shrinked_domain 'goo.ln'
         end
         config
@@ -40,6 +41,10 @@ describe Shrinker::Parser::Url do
 
         it "does not replace the link if there is a shrinker=false" do
           Shrinker::Parser::Url::replace("www.google.com?shrinker=false&something=else", {}, config).should == "www.google.com?something=else"
+        end
+
+        it "does not replace the link if its excluded" do
+          Shrinker::Parser::Url::replace("www.google.com/assets/logo.png?something=else", {}, config).should == "www.google.com/assets/logo.png?something=else"
         end
       end
     end

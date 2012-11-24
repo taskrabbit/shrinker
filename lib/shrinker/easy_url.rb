@@ -2,6 +2,10 @@ module Shrinker
   class EasyUrl < Struct.new(:url, :attributes)
     require 'cgi'
 
+    def =~(regexp)
+      to_s =~ regexp
+    end
+
     def to_s
       parsed_uri.query = to_param
       parsed_uri.query = nil if parsed_uri.query == ''

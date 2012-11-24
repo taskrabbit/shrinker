@@ -24,6 +24,7 @@ Shrinker.configure do
   backend 'Redis'
   backend_options client: {port: 6388, host: '192.168.12.22'}
   expanded_domain /(www.)?google.com/ # this also works with protocol
+  exclude /assets|images/
   shrinked_domain 'go.com'
 end
 ```

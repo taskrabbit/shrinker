@@ -3,9 +3,10 @@ module Shrinker
     class Url < Abstract
       def replace
         return url.to_s if url.params.delete(:shrinker).to_s == 'false'
+        return url.to_s if url =~ excluded_regex
 
         new_url = url.to_s
-        new_url = shrink if url.to_s =~ url_regex
+        new_url = shrink if url =~ url_regex
 
         new_url
       end

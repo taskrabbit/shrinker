@@ -26,6 +26,9 @@ module Shrinker
     # domain to be shrinked can be a regex
     config_setting :expanded_domain
 
+    # regex for links to be excluded
+    config_setting :exclude
+
     # domain to be used when shrinking the urls
     config_setting :shrinked_domain
 
