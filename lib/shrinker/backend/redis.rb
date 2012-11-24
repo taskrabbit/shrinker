@@ -34,6 +34,15 @@ module Shrinker
         end
       end 
 
+      def delete(token)
+        client.del(key(token))
+      end
+
+      def clear!(pattern = nil)
+        keys = client.keys("#{@namespace}::#{pattern || '*'}")
+        client.del(*keys)
+      end
+
       def key(token)
         [@namespace, token].compact.join('::')
       end
