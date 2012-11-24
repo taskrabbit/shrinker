@@ -3,7 +3,7 @@ module Shrinker
     require 'cgi'
 
     def to_s
-      parsed_uri.query = to_query
+      parsed_uri.query = to_param
       parsed_uri.query = nil if parsed_uri.query == ''
       parsed_uri.to_s
     end
@@ -20,8 +20,8 @@ module Shrinker
 
     protected
 
-     def to_query
-      return params.to_query if params.respond_to?(:to_query)
+     def to_param
+      return params.to_param('') if params.respond_to?(:to_param)
       params.collect { |key, value| "#{CGI.escape(key.to_s)}=#{CGI.escape(value.to_s)}" }.join("&")
     end
 
