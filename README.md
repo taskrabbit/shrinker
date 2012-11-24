@@ -23,7 +23,7 @@ Or install it yourself as:
 Shrinker.configure do
   backend 'Redis'
   backend_options client: {port: 6388, host: '192.168.12.22'}
-  expanded_domain /www.google.com/ # this also works with protocol
+  expanded_domain /(www.)?google.com/ # this also works with protocol
   shrinked_domain 'go.com'
 end
 ```
