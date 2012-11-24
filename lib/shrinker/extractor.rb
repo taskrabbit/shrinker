@@ -1,7 +1,5 @@
 module Shrinker
   class Extractor < Struct.new(:token, :config)
-    class UrlNotFound < ArgumentError; end;
-
     def self.unshrink(token, config = nil)
       self.new(token, config).unshrink
     end

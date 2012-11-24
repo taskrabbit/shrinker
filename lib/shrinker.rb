@@ -20,6 +20,8 @@ module Shrinker
     autoload :Mime,     'shrinker/parser/mime'
   end
 
+  class UrlNotFound < ArgumentError; end;
+
   class << self
     def configure(&block)
       if block_given?

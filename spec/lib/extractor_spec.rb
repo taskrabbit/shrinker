@@ -25,7 +25,7 @@ describe Shrinker::Extractor do
     it "raise UrlNotFound when not existing" do
       expect {
         Shrinker::Extractor.unshrink("not-exiting", config)
-      }.to raise_error(Shrinker::Extractor::UrlNotFound)
+      }.to raise_error(Shrinker::UrlNotFound)
     end
   end
 
