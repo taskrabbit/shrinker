@@ -42,4 +42,25 @@ describe Shrinker::Config do
     Shrinker::Backend::FakeBackend.should_receive(:new).with({:key => 'value'})
     Shrinker.send(:backend)
   end
+
+  describe "#merge!" do
+    it "merges a hash" do
+      config.merge!(backend_options: {something: true})
+      config.backend_options.should == {something: true}
+    end
+
+    it "merges an instance of Config" do
+      config.instance_eval do
+        expanded_pattern 'first_pattern'
+        shrinked_pattern 'shrinked_pattern'
+      end
+      other_config = Shrinker::Config.new
+      other_config.instance_eval do
+        expanded_pattern 'second_pattern'
+      end
+      config.merge!(other_config)
+      config.expanded_pattern.should == 'second_pattern'
+      config.shrinked_pattern.should == 'shrinked_pattern'
+    end
+  end
 end

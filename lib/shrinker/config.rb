@@ -5,7 +5,14 @@ module Shrinker
     # config_setting :dog
     #   --> dog 'Husky' :=> 'Husky' (setter)
     #   --> dog :=> 'Husky' (getter)
+
+    def self.settings
+      @settings ||= []
+    end
+
     def self.config_setting(name)
+      settings << name
+
       class_eval <<-EV, __FILE__, __LINE__ + 1
         attr_reader :#{name}
         
@@ -35,9 +42,25 @@ module Shrinker
     # domain to be used when shrinking the urls
     config_setting :shrinked_pattern
 
+
+    def ==(config)
+      self.class.settings.each { |setting| send(setting) == config.send(setting) }
+    end
+
     def reset!
       self.instance_variables.each do |var|
         self.instance_variable_set(var, nil)
+      end
+    end
+
+    def merge!(config)
+      case config
+      when self.class
+        self.class.settings.each { |setting| send(setting, config.send(setting)) }
+      when Hash
+        config.each_pair do |setting, value|
+          send(setting, value)
+        end
       end
     end
 

@@ -1,9 +1,16 @@
 module Shrinker
   module Parser
-    class Abstract < Struct.new(:content, :attributes, :config)
+    class Abstract < Struct.new(:content, :attributes)
+      attr_reader :config
+
       # Delegate replace to an instance
       def self.replace(content, attributes = {}, config = nil)
         self.new(content, attributes, config).replace
+      end
+
+      def initialize(content = nil, attributes = nil, config = nil)
+        super(content, attributes)
+        merge_config(config)
       end
 
       def replace
@@ -42,8 +49,9 @@ module Shrinker
         config.backend_instance
       end
 
-      def config
-        super || Shrinker.config
+      def merge_config(config)
+        @config ||= Shrinker.config.dup
+        @config.merge!(config)
       end
     end
   end
