@@ -8,7 +8,8 @@ describe Shrinker::Parser::Text do
         config = Shrinker::Config.new
         config.instance_eval do
           expanded_pattern /(www\.)?google.com/
-          shrinked_pattern 'goo.ln'
+          shrinked_pattern  'goo.ln'
+          around_pattern lambda { |p| /href="(?:https?:\/\/)?(#{p})"/ }
         end
         config
       end
@@ -16,27 +17,31 @@ describe Shrinker::Parser::Text do
       it "replaces proper occurences" do
         content = <<-EV
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Nunc quis rutrum http://www.google.com?something=true&else=false dolor. 
+          Nunc quis rutrum <a href="http://www.google.com?something=true&else=false">dolor</a>. 
+          <a href="www.google.com?params=abcdef" style="text-align:center;">http://google.com/safe</a>
           Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-          Curabitur ullamcorper nisl non dolor http://google.fr?something=true venenatis consequat.
+          Curabitur ullamcorper nisl non dolor <a href="http://google.fr?something=true">venenatis</a> consequat.
           Morbi odio libero, tincidunt quis tempus a, fringilla vitae augue.
-          http://google.com/somepath?something=true
+          <a href="http://google.com/somepath?something=true"></a>
           Aenean placerat ullamcorper lorem vel feugiat.
         EV
 
         Shrinker::Parser::Url.should_receive(:replace).with('www.google.com?something=true&else=false', {}, config).and_return("replace1")
+        Shrinker::Parser::Url.should_receive(:replace).with('www.google.com?params=abcdef', {}, config).and_return("replace2")
+        Shrinker::Parser::Url.should_receive(:replace).with('google.com/safe', {}, config).never
         Shrinker::Parser::Url.should_receive(:replace).with('google.fr?something=true', {}, config).never
-        Shrinker::Parser::Url.should_receive(:replace).with('google.com/somepath?something=true', {}, config).and_return("replace2")
+        Shrinker::Parser::Url.should_receive(:replace).with('google.com/somepath?something=true', {}, config).and_return("replace3")
 
         replaced_text = Shrinker::Parser::Text::replace(content, {}, config)
 
         expected_replaced_text = <<-EV
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Nunc quis rutrum http://replace1 dolor. 
+          Nunc quis rutrum <a href="http://replace1">dolor</a>. 
+          <a href="replace2" style="text-align:center;">http://google.com/safe</a>
           Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
-          Curabitur ullamcorper nisl non dolor http://google.fr?something=true venenatis consequat.
+          Curabitur ullamcorper nisl non dolor <a href="http://google.fr?something=true">venenatis</a> consequat.
           Morbi odio libero, tincidunt quis tempus a, fringilla vitae augue.
-          http://replace2
+          <a href="http://replace3"></a>
           Aenean placerat ullamcorper lorem vel feugiat.
         EV
 

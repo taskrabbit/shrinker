@@ -29,6 +29,9 @@ module Shrinker
     # regex for the url path to be excluded
     config_setting :exclude_path
 
+    # regex to mactch/exclude the pattern when matching around patterns
+    config_setting :around_pattern
+
     # domain to be used when shrinking the urls
     config_setting :shrinked_pattern
 

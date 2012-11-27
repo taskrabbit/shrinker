@@ -13,6 +13,12 @@ module Shrinker
       protected
 
       def url_regex
+        return base_url_regex if around_pattern.to_s == ''
+
+        around_pattern.call(base_url_regex)
+      end
+
+      def base_url_regex
         /(#{expanded_pattern}[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[-A-Z0-9+&@#\/%=~_|$])/i
       end
 
@@ -22,6 +28,10 @@ module Shrinker
 
       def expanded_pattern
         config.expanded_pattern
+      end
+
+      def around_pattern
+        config.around_pattern
       end
 
       def shrinked_pattern

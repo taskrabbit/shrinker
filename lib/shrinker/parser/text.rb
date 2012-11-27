@@ -3,7 +3,9 @@ module Shrinker
     class Text < Abstract
       def replace
         content.gsub(url_regex) do |url|
-          shrink_url(url)
+          matched_url = $1
+
+          url.gsub(matched_url, shrink_url(matched_url))
         end
       end
 
