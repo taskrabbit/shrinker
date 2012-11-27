@@ -14,7 +14,7 @@ module Shrinker
       def shrink
         token = Token.generate
         backend.store(content, token, attributes)
-        [shrinked_domain, token].join("/")
+        [shrinked_pattern, token].join("/")
       end
 
       def url

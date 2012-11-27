@@ -7,8 +7,8 @@ describe Shrinker::Parser::Text do
       let(:config) do
         config = Shrinker::Config.new
         config.instance_eval do
-          expanded_domain /(www\.)?google.com/
-          shrinked_domain 'goo.ln'
+          expanded_pattern /(www\.)?google.com/
+          shrinked_pattern 'goo.ln'
         end
         config
       end
@@ -59,8 +59,8 @@ describe Shrinker::Parser::Text do
       let(:config) do
         config = Shrinker::Config.new
         config.instance_eval do
-          expanded_domain /http:\/\/(www\.)?google.com/
-          shrinked_domain 'https://goo.ln'
+          expanded_pattern /http:\/\/(www\.)?google.com/
+          shrinked_pattern 'https://goo.ln'
         end
         config
       end

@@ -32,8 +32,8 @@ describe Shrinker::Parser::Mime do
     let(:config) do
       config = Shrinker::Config.new
       config.instance_eval do
-        expanded_domain /(www\.)?google.com/
-        shrinked_domain 'goo.ln'
+        expanded_pattern /(www\.)?google.com/
+        shrinked_pattern 'goo.ln'
       end
       config
     end

@@ -9,9 +9,9 @@ describe Shrinker::Parser::Url do
         config = Shrinker::Config.new
         config.instance_eval do
           backend         'Redis'
-          expanded_domain /(www\.)?google.com/
+          expanded_pattern /(www\.)?google.com/
           exclude /images|assets/
-          shrinked_domain 'goo.ln'
+          shrinked_pattern 'goo.ln'
         end
         config
       end
@@ -54,8 +54,8 @@ describe Shrinker::Parser::Url do
         config = Shrinker::Config.new
         config.instance_eval do
           backend         'Redis'
-          expanded_domain /http:\/\/(www\.)?google.com/
-          shrinked_domain 'https://goo.ln'
+          expanded_pattern /http:\/\/(www\.)?google.com/
+          shrinked_pattern 'https://goo.ln'
         end
         config
       end

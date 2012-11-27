@@ -13,19 +13,19 @@ module Shrinker
       protected
 
       def url_regex
-        /(#{expanded_domain}[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[-A-Z0-9+&@#\/%=~_|$])/i
+        /(#{expanded_pattern}[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[-A-Z0-9+&@#\/%=~_|$])/i
       end
 
       def excluded_regex
         config.exclude
       end
 
-      def expanded_domain
-        config.expanded_domain
+      def expanded_pattern
+        config.expanded_pattern
       end
 
-      def shrinked_domain
-        config.shrinked_domain
+      def shrinked_pattern
+        config.shrinked_pattern
       end
 
       def backend
