@@ -10,7 +10,7 @@ describe Shrinker::Parser::Url do
         config.instance_eval do
           backend         'Redis'
           expanded_pattern /(www\.)?google.com/
-          exclude /images|assets/
+          exclude_path /images|assets/
           shrinked_pattern 'goo.ln'
         end
         config

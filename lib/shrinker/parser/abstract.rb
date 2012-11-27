@@ -16,8 +16,8 @@ module Shrinker
         /(#{expanded_pattern}[-A-Z0-9+&@#\/%?=~_|$!:,.;]*[-A-Z0-9+&@#\/%=~_|$])/i
       end
 
-      def excluded_regex
-        config.exclude
+      def excluded_path_regex
+        config.exclude_path
       end
 
       def expanded_pattern

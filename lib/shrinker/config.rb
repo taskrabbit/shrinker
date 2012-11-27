@@ -26,8 +26,8 @@ module Shrinker
     # domain to be shrinked can be a regex
     config_setting :expanded_pattern
 
-    # regex for links to be excluded
-    config_setting :exclude
+    # regex for the url path to be excluded
+    config_setting :exclude_path
 
     # domain to be used when shrinking the urls
     config_setting :shrinked_pattern
