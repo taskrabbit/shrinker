@@ -53,6 +53,13 @@ module Shrinker
       end
     end
 
+    def merge(config)
+      new_config = Config.new
+      new_config.merge!(config)
+
+      new_config
+    end
+
     def merge!(config)
       case config
       when self.class

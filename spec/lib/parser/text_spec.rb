@@ -9,7 +9,7 @@ describe Shrinker::Parser::Text do
         config.instance_eval do
           expanded_pattern /(www\.)?google.com/
           shrinked_pattern  'goo.ln'
-          around_pattern lambda { |p| /href="(?:https?:\/\/)?(#{p})"/ }
+          around_pattern /href="(?:https?:\/\/)?($url)"/
         end
         config
       end

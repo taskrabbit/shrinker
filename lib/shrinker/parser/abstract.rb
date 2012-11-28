@@ -22,7 +22,7 @@ module Shrinker
       def url_regex
         return base_url_regex if around_pattern.to_s == ''
 
-        around_pattern.call(base_url_regex)
+        Regexp.new around_pattern.to_s.gsub('$url', base_url_regex.to_s)
       end
 
       def base_url_regex
