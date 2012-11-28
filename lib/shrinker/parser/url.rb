@@ -20,6 +20,10 @@ module Shrinker
       def url
         @url ||= EasyUrl.new(content)
       end
+
+      def url_regex
+        base_url_regex
+      end
     end
   end
 end
