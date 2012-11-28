@@ -1,0 +1,41 @@
+Date: Tue, 27 Nov 2012 21:23:03 +0000
+From: Someone <someone@example.com>
+To: someone@example.com
+Message-ID: <50b52f37d9dfb_805540b019a86752@example.mail>
+Subject: The subject
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>
+<html>
+=C2=A0=C2=A0<head>
+ \ <meta content=3D"text/html; charset=3DUTF-8" http-equiv=3D"Content-Ty=
+pe" />
+=C2=A0=C2=A0</head>
+=C2=A0=C2=A0<body>
+
+ <div style=3D"font-family: 'Helvetica Neue', Arial, Helvetica, sans-ser=
+if; color: #462815; margin: 10px auto; position: relative; width: 600px; =
+background-color: white;">
+ <img alt=3D"Quisque tincidunt mattis risus" border=
+"0" src=3D"https://www.my-example.com/class-aptent-taciti-sociosqu-ad-lit=
+ader.jpg" />
+<a href=3D"my-example.com/a?something=3Dtrue">my-example.com/none</a>
+ <br/>
+
+<br/>
+<a href=3D"https://www.my-example.com/donec-lobortis-lacus-vel-urna-variu=
+o--4?clicked=3Dabcdef">https://www.my-example.com/safe</a>
+
+<br/><br/>
+ Khufu hidden vcjjxnb. Cnvxjcmcjahrajcb zings
+non magna imperdiet aliquam.<br/><br/>
+<br/>
+<br/>
+
+</div>
+
+=C2=A0=C2=A0</body>
+</html>=

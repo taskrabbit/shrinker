@@ -5,7 +5,7 @@ module Shrinker
 
       def replace
         [email, email.all_parts].flatten.compact.each do |part|
-          new_body  = Text::replace(part.body.decoded, attributes, config)
+          new_body  = replace_part_body(part)
           part.body = if part.content_transfer_encoding
                         Mail::Body.new(new_body).encoded(part.content_transfer_encoding)
                       else
@@ -17,6 +17,25 @@ module Shrinker
 
       def email
         @email ||= Mail.read_from_string(content)
+      end
+
+      def replace_part_body(part)
+        replace_config = config
+        if part.mime_type == "text/html" && anchors_only_in_html? 
+          replace_config = config.merge({:around_pattern => anchor_tag_around_regex})
+        end
+
+        Text::replace(part.body.decoded, attributes, replace_config)
+      end
+
+      private 
+
+      def anchor_tag_around_regex
+        /href="(?:https?:\/\/)?($url)"/
+      end
+
+      def anchors_only_in_html?
+        config.anchors_only_in_html == true
       end
     end
   end

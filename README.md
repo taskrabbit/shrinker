@@ -25,6 +25,7 @@ Shrinker.configure do
   backend_options client: {port: 6388, host: '192.168.12.22'}
   expanded_domain /(www.)?google.com/ # this also works with protocol
   exclude_path /assets|images/
+  anchors\_only\_in_html true         # With the mime only replace the links inside an anchor
   shrinked_domain 'go.com'
 end
 ```

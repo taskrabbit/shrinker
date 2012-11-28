@@ -42,6 +42,8 @@ module Shrinker
     # domain to be used when shrinking the urls
     config_setting :shrinked_pattern
 
+    # setting boolean to replace links only in anchor tags href inside html
+    config_setting :anchors_only_in_html
 
     def ==(config)
       self.class.settings.each { |setting| send(setting) == config.send(setting) }
