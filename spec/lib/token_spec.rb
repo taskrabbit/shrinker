@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe Shrinker::Token do
   describe "#generate" do
-    it "returns a string of SecureRandom hex" do
-      SecureRandom.should_receive(:hex).with(6).and_return "thetoken"
+    it "allows passing a prefix" do
+      Shrinker::Token.stub(:rand).and_return('random')
+      Digest::MD5.should_receive(:hexdigest).with("something__random").and_return("abcdefghijklmnopqrstuvwxyz")
 
-      Shrinker::Token.generate.should == "thetoken"
+      Shrinker::Token.generate(prefix: 'something').should == "opqrstuvwxyz"
     end
   end
 

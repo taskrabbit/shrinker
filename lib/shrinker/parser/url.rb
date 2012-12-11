@@ -12,7 +12,7 @@ module Shrinker
       end
 
       def shrink
-        token = Token.fetch_unique_token(backend)
+        token = Token.fetch_unique_token(backend, prefix: "__#{attributes.to_json}__#{content}")
         backend.store(content, token, attributes)
 
         [shrinked_pattern, token].join("/")
