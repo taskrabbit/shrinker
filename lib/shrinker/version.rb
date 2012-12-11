@@ -3,7 +3,7 @@ module Shrinker
 
     MAJOR = 0
     MINOR = 0
-    PATCH = 1
+    PATCH = 2
     PRE   = nil
 
     def self.to_s
