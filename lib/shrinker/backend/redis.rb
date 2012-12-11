@@ -26,6 +26,10 @@ module Shrinker
         Shrinker::Serializer::from_json(content)
       end
 
+      def used_token?(token)
+        !!client.get(key(token))
+      end
+
       protected
 
       def client

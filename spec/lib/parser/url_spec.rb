@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Shrinker::Parser::Url do
   describe "#replace" do
-    before { Shrinker::Token.stub(:generate).and_return("thetoken") }
+    before { Shrinker::Token.stub(:fetch_unique_token).and_return("thetoken") }
 
     context "without protocol" do
       let(:config) do
