@@ -4,7 +4,7 @@ module Shrinker
       require 'mail'
 
       def replace
-        [email, email.all_parts].flatten.compact.each do |part|
+        ([email] + email.all_parts).each do |part|
           new_body  = replace_part_body(part)
           part.body = if part.content_transfer_encoding
                         Mail::Body.new(new_body).encoded(part.content_transfer_encoding)
