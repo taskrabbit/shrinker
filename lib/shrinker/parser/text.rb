@@ -5,7 +5,7 @@ module Shrinker
         content.gsub(url_regex) do |url|
           matched_url = $1
 
-          url.gsub(matched_url, shrink_url(matched_url))
+          url.gsub!(matched_url, shrink_url(matched_url))
         end
       end
 
