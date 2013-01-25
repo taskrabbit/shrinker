@@ -47,7 +47,7 @@ describe Shrinker::Parser::Mime do
     end
 
     context "when mime is multipart" do
-      let(:mime) { File.read(File.join(SUPPORT_PATH, 'mime.txt')) }
+      let(:mime) { File.read(File.join(FIXTURES_PATH, 'mime.txt')) }
 
       it "replace only anchor tags when setting anchors_only_in_html to true" do
         config.anchors_only_in_html true
@@ -72,4 +72,43 @@ describe Shrinker::Parser::Mime do
       end
     end
   end
+
+  context "for longer multipart mimes" do
+
+    let(:multipart_mime) { File.read(File.join(FIXTURES_PATH, 'multipart_mime.txt')) }
+    let(:config) do
+      config = Shrinker::Config.new
+      config.instance_eval do
+        backend 'Redis'
+        expanded_pattern /www.somwebsite.com/
+        exclude_path /core|assets/
+        shrinked_pattern 'goo.ln'
+      end
+      config
+    end
+
+    it "replace only anchor tags when setting anchors_only_in_html to true" do
+      config.anchors_only_in_html true
+
+      Shrinker::Parser::Url.should_receive(:replace).with("www.somwebsite.com/glencoe-il/t/office-help--0000", {}, instance_of(Shrinker::Config)).and_return('replace1')
+      Shrinker::Parser::Url.should_receive(:replace).with("www.somwebsite.com/notifications", {}, instance_of(Shrinker::Config)).and_return('replace2')
+      Shrinker::Parser::Url.should_receive(:replace).with("www.somwebsite.com/go/defdbf1191f17112776a6adb4c201b277af845278971e81b532089d1b96926300347343b15580afba7a7cc41567b9608161d", {}, instance_of(Shrinker::Config)).and_return('replace3')
+      Shrinker::Parser::Url.should_receive(:replace).with("www.somwebsite.com/go/5f25b2b15ec6b450c3c5af71102616e07413381a718f1b5d21e7ff9e26d6fc216e9c05ab2b8a40195a16c8603be5860170eb", {}, instance_of(Shrinker::Config)).and_return('replace4')
+      Shrinker::Parser::Url.should_receive(:replace).with('www.somwebsite.com/core/assets/email/somwebsite-sky-header.jpg', {}, instance_of(Shrinker::Config)).never
+
+      replaced_mime = Shrinker::Parser::Mime::replace(multipart_mime, {}, config)
+    end
+
+    it "replace every urls when not setting anchors_only_in_html" do
+      Shrinker::Parser::Url.should_receive(:replace).with("www.somwebsite.com/glencoe-il/t/office-help--0000", {}, instance_of(Shrinker::Config)).and_return('replace1')
+      Shrinker::Parser::Url.should_receive(:replace).with("www.somwebsite.com/notifications", {}, instance_of(Shrinker::Config)).and_return('replace2')
+      Shrinker::Parser::Url.should_receive(:replace).with("www.somwebsite.com/go/defdbf1191f17112776a6adb4c201b277af845278971e81b532089d1b96926300347343b15580afba7a7cc41567b9608161d", {}, instance_of(Shrinker::Config)).and_return('replace3')
+      Shrinker::Parser::Url.should_receive(:replace).with("www.somwebsite.com/go/5f25b2b15ec6b450c3c5af71102616e07413381a718f1b5d21e7ff9e26d6fc216e9c05ab2b8a40195a16c8603be5860170eb", {}, instance_of(Shrinker::Config)).and_return('replace4')
+      Shrinker::Parser::Url.should_receive(:replace).with('www.somwebsite.com/core/assets/email/somwebsite-sky-header.jpg', {}, instance_of(Shrinker::Config)).never
+
+      replaced_mime = Shrinker::Parser::Mime::replace(multipart_mime, {}, config)
+    end
+
+  end
+
 end
