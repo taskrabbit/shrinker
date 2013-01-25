@@ -1,0 +1,88 @@
+Date: Fri, 25 Jan 2013 20:24:15 +0000
+From: somwebsite Notifications <no-reply@somwebsite.com>
+To: robbie Gail <robbie@efdnopqrstuv.net>
+Message-ID: <5102e9efd1001_69a140b019a4ec@12345-123456.mail>
+Subject: You have been paid for: Office Help
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_5102e9ef9c9de_69a140b019a1f9";
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
+X-SMTPAPI: {"category":"offer_closed"}
+
+
+
+----==_mimepart_5102e9ef9c9de_69a140b019a1f9
+Date: Fri, 25 Jan 2013 20:24:15 +0000
+Mime-Version: 1.0
+Content-Type: text/plain;
+ charset=utf-8
+Content-Transfer-Encoding: 7bit
+Content-ID: <5102e9efc98ef_69a140b019a2d6@12345-123456.mail>
+
+
+Hello robbie,
+
+Task Office Help has been marked closed, and $00.00 has been transferred to your account. You can view your account balance at any time.
+Task link: https://www.somwebsite.com/glencoe-il/t/office-help--0000
+
+Happy running!
+The somwebsite Crew
+
+
+
+
+-------------------------------------------------------------
+Questions? Concerns? Problems? Let us know!
+support.somwebsite.com | support@somwebsite.com
+
+If you no longer wish to receive this alert email, simply change your preferences: https://www.somwebsite.com/notifications
+
+
+----==_mimepart_5102e9ef9c9de_69a140b019a1f9
+Date: Fri, 25 Jan 2013 20:24:15 +0000
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Content-ID: <5102e9efce538_69a140b019a3a6@12345-123456.mail>
+
+ \ <div style=3D"font-family: 'Helvetica Neue', Arial, Helvetica, sans-ser=
+if; color: #462815; margin: 10px auto; position: relative; width: 600px; =
+background-color: white;">
+ =
+
+ <img alt=3D"somwebsite We=E2=80=99ll do your to-do=E2=80=99s" border=3D=
+"0" src=3D"https://www.somwebsite.com/core/assets/email/somwebsite-sky-he=
+ader.jpg" />
+
+ <br/>
+Hello robbie,<br/>
+<br/>
+Task <a href=3D"https://www.somwebsite.com/go/defdbf1191f17112776a6adb4c2=
+01b277af845278971e81b532089d1b96926300347343b15580afba7a7cc41567b9608161d=
+">Office Help</a> has been marked closed, and $00.00 has been transferred=
+ to your account. \ You can view your account balance at any time.<br/>
+<br/>
+Happy running!<br/>
+The somwebsite Crew
+
+ <div style=3D"margin-top:25px; font-size: 11px; color: #ADA097;">
+ <p>
+ Questions? Concerns? Problems? Let us know!<br/>
+ \ <a href=3D"http://support.somwebsite.com">Support Center</a> | <a=
+ href=3D"mailto:support+email@somwebsite.com">Email us</a> | 888-661-8105=
+
+ \ </p>
+
+ <p>If you no longer wish to receive this alert email, simply <a hre=
+f=3D"https://www.somwebsite.com/go/5f25b2b15ec6b450c3c5af71102616e0741338=
+1a718f1b5d21e7ff9e26d6fc216e9c05ab2b8a40195a16c8603be5860170eb">change yo=
+ur preferences</a></p>
+ </div>
+ =
+
+ </div>
+
+
+----==_mimepart_5102e9ef9c9de_69a140b019a1f9--
