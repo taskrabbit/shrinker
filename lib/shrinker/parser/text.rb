@@ -5,6 +5,8 @@ module Shrinker
         content.gsub(url_regex) do |url|
           matched_url = $1
 
+          next if matched_url =~ excluded_path_regex
+
           url.gsub!(matched_url, shrink_url(matched_url))
         end
       end

@@ -4,7 +4,9 @@ module Shrinker
       require 'mail'
 
       def replace
-        ([email] + email.all_parts).each do |part|
+        parts = email.all_parts.empty? ? [email] : email.all_parts
+
+        parts.each do |part|
           new_body  = replace_part_body(part)
           part.body = if part.content_transfer_encoding
                         Mail::Body.new(new_body).encoded(part.content_transfer_encoding)
@@ -20,9 +22,9 @@ module Shrinker
       end
 
       def replace_part_body(part)
-        replace_config = config
+        replace_config = config.dup
         if part.mime_type == "text/html" && anchors_only_in_html? 
-          replace_config = config.merge({:around_pattern => anchor_tag_around_regex})
+          replace_config.merge!({:around_pattern => anchor_tag_around_regex})
         end
 
         Text::replace(part.body.decoded, attributes, replace_config)
