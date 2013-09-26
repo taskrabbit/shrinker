@@ -44,6 +44,12 @@ module Shrinker
 
     # setting boolean to replace links only in anchor tags href inside html
     config_setting :anchors_only_in_html
+    
+    # how long should url tokens be, default 6
+    config_setting :token_length_target
+    
+    # how should it generate new tokens: longer (default), random
+    config_setting :token_length_strategy
 
     def ==(config)
       self.class.settings.each { |setting| send(setting) == config.send(setting) }
