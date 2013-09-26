@@ -14,7 +14,7 @@ module Shrinker
       end
 
       def replace
-        raise NotImplemented
+        raise "Shrinker::Parser::Abstract.replace not implemented"
       end
 
       protected

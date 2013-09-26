@@ -8,11 +8,11 @@ module Shrinker
       end
 
       def store(raw_url, token, attributes = {})
-        raise NotImplemented
+        raise "Shrinker::Backend::Abstract.store not implemented"
       end
 
       def fetch(token)
-        raise NotImplemented
+        raise "Shrinker::Backend::Abstract.fetch not implemented"
       end
 
       private
