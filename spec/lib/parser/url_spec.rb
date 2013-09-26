@@ -48,6 +48,50 @@ describe Shrinker::Parser::Url do
         end
       end
     end
+    
+    context "with full url dynamic pattern" do
+      let(:config) do
+        config = Shrinker::Config.new
+        config.instance_eval do
+          backend         'Redis'
+          expanded_pattern /(www\.)?google.com/
+          shrinked_pattern lambda{ |m| "#{m[0]}/x"}
+        end
+        config
+      end
+
+      it "replace the link" do
+        Shrinker::Parser::Url::replace("www.google.com?something=else", {:user_id => 10}, config).should == "www.google.com/x/thetoken"
+      end
+
+      it "store the old link" do
+        Shrinker::Backend::Redis.any_instance.should_receive(:store).with("www.google.com?something=else", 'thetoken', {:user_id => 10})
+
+        Shrinker::Parser::Url::replace("www.google.com?something=else", {:user_id => 10}, config)
+      end
+    end
+    
+    context "with partial url dynamic pattern" do
+      let(:config) do
+        config = Shrinker::Config.new
+        config.instance_eval do
+          backend         'Redis'
+          expanded_pattern /(.+)\.google\.com/
+          shrinked_pattern lambda{ |m| "#{m[1]}.other.com"}
+        end
+        config
+      end
+
+      it "replace the link" do
+        Shrinker::Parser::Url::replace("xyz.google.com?something=else", {:user_id => 10}, config).should == "xyz.other.com/thetoken"
+      end
+
+      it "store the old link" do
+        Shrinker::Backend::Redis.any_instance.should_receive(:store).with("www.google.com?something=else", 'thetoken', {:user_id => 10})
+
+        Shrinker::Parser::Url::replace("www.google.com?something=else", {:user_id => 10}, config)
+      end
+    end
 
     context "with protocol" do
       let(:config) do

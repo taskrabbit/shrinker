@@ -6,7 +6,7 @@ module Shrinker
         return url.to_s if url =~ excluded_path_regex
 
         new_url = url.to_s
-        new_url = shrink if url =~ url_regex
+        new_url = shrink if new_url =~ url_regex
 
         new_url
       end
@@ -15,7 +15,18 @@ module Shrinker
         token = Token.fetch_unique_token(backend, prefix: "__#{attributes.to_json}__#{content}")
         backend.store(content, token, attributes)
 
-        [shrinked_pattern, token].join("/")
+        if shrinked_pattern.respond_to?(:call)
+          if match = url.to_s.match(expanded_pattern)
+            start = shrinked_pattern.call(match)
+          else
+            # just bail out
+            return url.to_s
+          end
+        else
+          start = shrinked_pattern.to_s
+        end
+        
+        [start, token].join("/")
       end
 
       def url
