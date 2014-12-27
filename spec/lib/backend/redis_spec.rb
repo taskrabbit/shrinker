@@ -22,6 +22,16 @@ describe Shrinker::Backend::Redis do
 
       subject.send(:client)
     end
+
+    it "does not instantiate a redis if we pass it " do
+      redis_connection = double
+
+      subject = Shrinker::Backend::Redis.new(options.merge(connection: redis_connection))
+
+      expect(Redis).to receive(:new).with(options[:client]).never
+
+      expect(subject.send(:client)).to eql(redis_connection)
+    end
   end
 
   context "with a default client setup" do

@@ -6,6 +6,7 @@ module Shrinker
       def initialize(options = {})
         super
         @client_options = options[:client] || {}
+        @client         = options[:connection]
         @namespace      = options[:namespace] || '_shrinker'
       end
 
