@@ -17,9 +17,9 @@ describe Shrinker::Extractor do
 
     it "returns an EasyUrl instance" do
       easy_url = Shrinker::Extractor.unshrink("token", config)
-      easy_url.should be_instance_of(Shrinker::EasyUrl)
-      easy_url.to_s.should       == "someurl"
-      easy_url.attributes.should == {"test" => 'ab'}
+      expect(easy_url).to be_instance_of(Shrinker::EasyUrl)
+      expect(easy_url.to_s).to eql("someurl")
+      expect(easy_url.attributes).to eql({"test" => 'ab'})
     end
 
     it "raise UrlNotFound when not existing" do
@@ -31,7 +31,7 @@ describe Shrinker::Extractor do
 
   describe "#config" do
     it "returns the default config by default" do
-      Shrinker::Extractor.new.send(:config).should == Shrinker.config
+      expect(Shrinker::Extractor.new.send(:config)).to eql Shrinker.config
     end
   end
 end

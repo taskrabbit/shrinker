@@ -36,7 +36,7 @@ module Shrinker
         @client ||= begin
           ::Redis.new(@client_options)
         end
-      end 
+      end
 
       def delete(token)
         client.del(key(token))

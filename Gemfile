@@ -4,6 +4,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rspec'
-gem 'debugger'
+gem 'byebug'
 gem 'redis'
 gem 'mail'

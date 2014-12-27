@@ -18,7 +18,7 @@ describe Shrinker::Backend::Redis do
     subject { Shrinker::Backend::Redis.new(options) }
 
     it "uses the options" do
-      Redis.should_receive(:new).with(options[:client])
+      expect(Redis).to receive(:new).with(options[:client])
 
       subject.send(:client)
     end
@@ -26,28 +26,28 @@ describe Shrinker::Backend::Redis do
 
   context "with a default client setup" do
     let(:client) { Redis.new }
-    before { subject.stub(:client) { client} }
+    before { allow(subject).to receive(:client) { client} }
 
     describe "#store" do
       it "stores the raw_url with the token key" do
-        Shrinker::Serializer.should_receive(:to_json).with('someurl', {}).and_return("tobestored")
+        expect(Shrinker::Serializer).to receive(:to_json).with('someurl', {}).and_return("tobestored")
 
         subject.store('someurl', 'token')
 
-        client.get("_shrinker::token").should == 'tobestored'
+        expect(client.get("_shrinker::token")).to eql 'tobestored'
       end
 
       it "stores the raw_url with the attributes" do
-        Shrinker::Serializer.should_receive(:to_json).with('someurl', {:user_id => 123}).and_return("tobestored")
+        expect(Shrinker::Serializer).to receive(:to_json).with('someurl', {:user_id => 123}).and_return("tobestored")
 
         subject.store('someurl', 'token', :user_id => 123)
-        client.get("_shrinker::token").should == 'tobestored'
+        expect(client.get("_shrinker::token")).to eql 'tobestored'
       end
 
       it "sets the ttl when present" do
-        Shrinker::Serializer.should_receive(:to_json).with('someurl', {}).and_return("tobestored")
-        subject.stub(:ttl) { 32 }
-        client.should_receive(:setex).with("_shrinker::token", 32, "tobestored")
+        expect(Shrinker::Serializer).to receive(:to_json).with('someurl', {}).and_return("tobestored")
+        allow(subject).to receive(:ttl) { 32 }
+        expect(client).to receive(:setex).with("_shrinker::token", 32, "tobestored")
 
         subject.store('someurl', 'token')
       end
@@ -56,7 +56,7 @@ describe Shrinker::Backend::Redis do
     describe "#fetch" do
       it "fetches using the token key" do
         client.set("_shrinker::token", '{"url": "someurl", "attributes": {}}')
-        subject.fetch("token").should == {'url' => "someurl", 'attributes' => {}}
+        expect(subject.fetch("token")).to eql({'url' => "someurl", 'attributes' => {}})
       end
     end
 
@@ -66,11 +66,11 @@ describe Shrinker::Backend::Redis do
       it "returns true when the token is used" do
         client.set("_shrinker::token", '{"url": "someurl", "attributes": {}}')
 
-        subject.used_token?('token').should be_true
+        expect(subject.used_token?('token')).to eql(true)
       end
 
       it "returns false" do
-        subject.used_token?('token').should be_false
+        expect(subject.used_token?('token')).to eql(false)
       end
     end
   end

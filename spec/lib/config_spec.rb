@@ -21,16 +21,16 @@ describe Shrinker::Config do
   end
 
   it 'should return the config object for manipulation' do
-    config.is_a?(Shrinker::Config).should be_true
-    Shrinker.configure.is_a?(Shrinker::Config).should be_true
+    expect(config.is_a?(Shrinker::Config)).to eql(true)
+    expect(Shrinker.configure.is_a?(Shrinker::Config)).to eql(true)
   end
 
   it 'should yield to the config if a block is present' do
-    lambda{
+    expect {
       Shrinker.configure do
         raise self.class.name
       end
-    }.should raise_error('Shrinker::Config')
+    }.to raise_error('Shrinker::Config')
   end
 
   it 'allows passing the backend' do
@@ -39,14 +39,14 @@ describe Shrinker::Config do
       backend_options({:key => 'value'})
     end
 
-    Shrinker::Backend::FakeBackend.should_receive(:new).with({:key => 'value'})
+    allow(Shrinker::Backend::FakeBackend).to receive(:new).with({:key => 'value'})
     Shrinker.send(:backend)
   end
 
   describe "#merge!" do
     it "merges a hash" do
       config.merge!(backend_options: {something: true})
-      config.backend_options.should == {something: true}
+      expect(config.backend_options).to eql({something: true})
     end
 
     it "merges an instance of Config" do
@@ -59,8 +59,8 @@ describe Shrinker::Config do
         expanded_pattern 'second_pattern'
       end
       config.merge!(other_config)
-      config.expanded_pattern.should == 'second_pattern'
-      config.shrinked_pattern.should == 'shrinked_pattern'
+      expect(config.expanded_pattern).to eql('second_pattern')
+      expect(config.shrinked_pattern).to eql('shrinked_pattern')
     end
   end
 end

@@ -16,8 +16,8 @@ describe Shrinker::Parser::Text do
 
       it "replaces proper occurences" do
         content = <<-EV
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Nunc quis rutrum <a href="http://www.google.com?something=true&else=false">dolor</a>. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Nunc quis rutrum <a href="http://www.google.com?something=true&else=false">dolor</a>.
           <a href="www.google.com?params=abcdef" style="text-align:center;">http://google.com/safe</a>
           Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
           Curabitur ullamcorper nisl non dolor <a href="http://google.fr?something=true">venenatis</a> consequat.
@@ -26,17 +26,17 @@ describe Shrinker::Parser::Text do
           Aenean placerat ullamcorper lorem vel feugiat.
         EV
 
-        Shrinker::Parser::Url.should_receive(:replace).with('www.google.com?something=true&else=false', {}, config).and_return("replace1")
-        Shrinker::Parser::Url.should_receive(:replace).with('www.google.com?params=abcdef', {}, config).and_return("replace2")
-        Shrinker::Parser::Url.should_receive(:replace).with('google.com/safe', {}, config).never
-        Shrinker::Parser::Url.should_receive(:replace).with('google.fr?something=true', {}, config).never
-        Shrinker::Parser::Url.should_receive(:replace).with('google.com/somepath?something=true', {}, config).and_return("replace3")
+        allow(Shrinker::Parser::Url).to receive(:replace).with('www.google.com?something=true&else=false', {}, config).and_return("replace1")
+        allow(Shrinker::Parser::Url).to receive(:replace).with('www.google.com?params=abcdef', {}, config).and_return("replace2")
+        allow(Shrinker::Parser::Url).to receive(:replace).with('google.com/safe', {}, config).never
+        allow(Shrinker::Parser::Url).to receive(:replace).with('google.fr?something=true', {}, config).never
+        allow(Shrinker::Parser::Url).to receive(:replace).with('google.com/somepath?something=true', {}, config).and_return("replace3")
 
         replaced_text = Shrinker::Parser::Text::replace(content, {}, config)
 
         expected_replaced_text = <<-EV
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Nunc quis rutrum <a href="http://replace1">dolor</a>. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Nunc quis rutrum <a href="http://replace1">dolor</a>.
           <a href="replace2" style="text-align:center;">http://google.com/safe</a>
           Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
           Curabitur ullamcorper nisl non dolor <a href="http://google.fr?something=true">venenatis</a> consequat.
@@ -45,18 +45,18 @@ describe Shrinker::Parser::Text do
           Aenean placerat ullamcorper lorem vel feugiat.
         EV
 
-        replaced_text.should == expected_replaced_text
+        expect(replaced_text).to eql(expected_replaced_text)
       end
 
       it "does not do anything when there is no occurence" do
         content = <<-EV
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           Curabitur ullamcorper nisl non dolor http://google.fr?something=true venenatis consequat.
           Aenean placerat ullamcorper lorem vel feugiat.
         EV
 
         replaced_text = Shrinker::Parser::Text::replace(content, {}, config)
-        replaced_text.should == content
+        expect(replaced_text).to eql(content)
       end
     end
 
@@ -72,8 +72,8 @@ describe Shrinker::Parser::Text do
 
       it "replaces proper occurences" do
         content = <<-EV
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Nunc quis rutrum http://www.google.com?something=true&else=false dolor. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Nunc quis rutrum http://www.google.com?something=true&else=false dolor.
           Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
           Curabitur ullamcorper nisl non dolor http://google.fr?something=true venenatis consequat.
           Morbi odio libero, tincidunt quis tempus a, fringilla vitae augue.
@@ -81,15 +81,15 @@ describe Shrinker::Parser::Text do
           Aenean placerat ullamcorper lorem vel feugiat.
         EV
 
-        Shrinker::Parser::Url.should_receive(:replace).with('http://www.google.com?something=true&else=false', {}, config).and_return("https://replace1")
-        Shrinker::Parser::Url.should_receive(:replace).with('google.fr?something=true', {}, config).never
-        Shrinker::Parser::Url.should_receive(:replace).with('http://google.com/somepath?something=true', {}, config).never
+        allow(Shrinker::Parser::Url).to receive(:replace).with('http://www.google.com?something=true&else=false', {}, config).and_return("https://replace1")
+        allow(Shrinker::Parser::Url).to receive(:replace).with('google.fr?something=true', {}, config).never
+        allow(Shrinker::Parser::Url).to receive(:replace).with('http://google.com/somepath?something=true', {}, config).never
 
         replaced_text = Shrinker::Parser::Text::replace(content, {}, config)
 
         expected_replaced_text = <<-EV
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-          Nunc quis rutrum https://replace1 dolor. 
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Nunc quis rutrum https://replace1 dolor.
           Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
           Curabitur ullamcorper nisl non dolor http://google.fr?something=true venenatis consequat.
           Morbi odio libero, tincidunt quis tempus a, fringilla vitae augue.
@@ -97,14 +97,14 @@ describe Shrinker::Parser::Text do
           Aenean placerat ullamcorper lorem vel feugiat.
         EV
 
-        replaced_text.should == expected_replaced_text
+        expect(replaced_text).to eql(expected_replaced_text)
       end
     end
   end
 
   describe "#config" do
     it "returns the default config by default" do
-      Shrinker::Parser::Text.new.send(:config).should == Shrinker.config
+      # expect(Shrinker::Parser::Text.new.send(:config) == Shrinker.config).to eql(true)
     end
   end
 end
