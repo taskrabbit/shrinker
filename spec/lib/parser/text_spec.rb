@@ -104,7 +104,7 @@ describe Shrinker::Parser::Text do
 
   describe "#config" do
     it "returns the default config by default" do
-      # expect(Shrinker::Parser::Text.new.send(:config) == Shrinker.config).to eql(true)
+      expect(Shrinker::Parser::Text.new.send(:config) == Shrinker.config).to eql(true)
     end
   end
 end

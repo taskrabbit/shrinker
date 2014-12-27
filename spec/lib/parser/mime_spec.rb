@@ -51,6 +51,7 @@ describe Shrinker::Parser::Mime do
 
       it "replace only anchor tags when setting anchors_only_in_html to true" do
         config.anchors_only_in_html true
+        config.around_pattern /href="(?:https?:\/\/)?($url)"/
 
         expect(Shrinker::Parser::Url).to receive(:replace).with("my-example.com/a?something=true", {}, config).and_return('replace1')
         expect(Shrinker::Parser::Url).to receive(:replace).with("www.my-example.com/donec-lobortis-lacus-vel-urna-variuo--4?clicked=abcdef", {}, config).and_return('replace2')
@@ -90,11 +91,14 @@ describe Shrinker::Parser::Mime do
     it "replace only anchor tags when setting anchors_only_in_html to true" do
       config.anchors_only_in_html true
 
+      config_for_html = config.dup
+      config_for_html.around_pattern /href="(?:https?:\/\/)?($url)"/
+
       expect(Shrinker::Parser::Url).to receive(:replace).with("www.somwebsite.com/glencoe-il/t/office-help--0000", {}, config).and_return('replace1')
       expect(Shrinker::Parser::Url).to receive(:replace).with("www.somwebsite.com/notifications", {}, config).and_return('replace2')
-      expect(Shrinker::Parser::Url).to receive(:replace).with("www.somwebsite.com/go/defdbf1191f17112776a6adb4c201b277af845278971e81b532089d1b96926300347343b15580afba7a7cc41567b9608161d", {}, config).and_return('replace3')
-      expect(Shrinker::Parser::Url).to receive(:replace).with("www.somwebsite.com/go/5f25b2b15ec6b450c3c5af71102616e07413381a718f1b5d21e7ff9e26d6fc216e9c05ab2b8a40195a16c8603be5860170eb", {}, config).and_return('replace4')
-      expect(Shrinker::Parser::Url).to receive(:replace).with('www.somwebsite.com/core/assets/email/somwebsite-sky-header.jpg', {}, config).never
+      expect(Shrinker::Parser::Url).to receive(:replace).with("www.somwebsite.com/go/defdbf1191f17112776a6adb4c201b277af845278971e81b532089d1b96926300347343b15580afba7a7cc41567b9608161d", {}, config_for_html).and_return('replace3')
+      expect(Shrinker::Parser::Url).to receive(:replace).with("www.somwebsite.com/go/5f25b2b15ec6b450c3c5af71102616e07413381a718f1b5d21e7ff9e26d6fc216e9c05ab2b8a40195a16c8603be5860170eb", {}, config_for_html).and_return('replace4')
+      expect(Shrinker::Parser::Url).to receive(:replace).with('www.somwebsite.com/core/assets/email/somwebsite-sky-header.jpg', {}, config_for_html).never
 
       replaced_mime = Shrinker::Parser::Mime::replace(multipart_mime, {}, config)
     end

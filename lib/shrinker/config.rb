@@ -52,7 +52,9 @@ module Shrinker
     config_setting :token_length_strategy
 
     def ==(config)
-      self.class.settings.each { |setting| send(setting) == config.send(setting) }
+      self.class.settings.each { |setting| return false unless send(setting) == config.send(setting) }
+
+      true
     end
 
     def reset!
