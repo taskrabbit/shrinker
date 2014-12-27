@@ -22,7 +22,7 @@ Or install it yourself as:
 ```ruby
 Shrinker.configure do
   backend 'Redis'
-  backend_options client: {port: 6388, host: '192.168.12.22'}
+  backend_options client: {port: 6388, host: '192.168.12.22'} # or connection: Redis.current
   expanded_domain /(www.)?google.com/ # this also works with protocol
   exclude_path /assets|images/
   anchors\_only\_in_html true         # With the mime only replace the links inside an anchor
@@ -37,8 +37,8 @@ Usage on a text:
 ```ruby
 
 text = <<-EV
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-  Nunc quis rutrum http://www.google.com?something=true&else=false dolor. 
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  Nunc quis rutrum http://www.google.com?something=true&else=false dolor.
   Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
   Curabitur ullamcorper nisl non dolor http://google.fr?something=true venenatis consequat.
   Morbi odio libero, tincidunt quis tempus a, fringilla vitae augue.
@@ -49,9 +49,9 @@ EV
 
 new_text = Shrinker::Parser::Text.replace(text, {:user_id => 123})
 
-new_text # => 
-# Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-# Nunc quis rutrum http://go.com/token1 dolor. 
+new_text # =>
+# Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+# Nunc quis rutrum http://go.com/token1 dolor.
 # Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
 # Curabitur ullamcorper nisl non dolor http://google.fr?something=true venenatis consequat.
 # Morbi odio libero, tincidunt quis tempus a, fringilla vitae augue.
