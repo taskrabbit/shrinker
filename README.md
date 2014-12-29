@@ -22,7 +22,7 @@ Or install it yourself as:
 ```ruby
 Shrinker.configure do
   backend 'Redis'
-  backend_options client: {port: 6388, host: '192.168.12.22'} # or connection: Redis.current
+  backend_options client: {port: 6388, host: '192.168.12.22'}, expires_in: 2.weeks # or connection: Redis.current
   expanded_domain /(www.)?google.com/ # this also works with protocol
   exclude_path /assets|images/
   anchors\_only\_in_html true         # With the mime only replace the links inside an anchor
