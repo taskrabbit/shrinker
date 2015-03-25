@@ -9,9 +9,13 @@ module Shrinker
 
       round = 0
       while need_token
-        token      = generate(round, options)
-        need_token = backend.used_token?(token)
-        round += 1
+        token = generate(round, options)
+        if token.nil? || token == ''
+          token = generate(round - 1, options)
+        else
+          need_token = backend.used_token?(token)
+          round += 1
+        end
       end
 
       token
@@ -33,7 +37,7 @@ module Shrinker
       else
         length += round
       end
-      
+
       Digest::MD5.hexdigest("#{prefix}#{extra}")[-1*length..-1]
     end
   end
