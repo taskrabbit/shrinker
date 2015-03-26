@@ -35,6 +35,11 @@ describe Shrinker::Token do
       expect(Shrinker::Token.generate(0, prefix: 'something')).to eql("uvwxyz")
     end
 
+    it "returns the token if the text is longer" do
+      allow(Digest::MD5).to receive(:hexdigest).with("something").and_return("abcdefghijklmnopqrstuvwxyz")
+      expect(Shrinker::Token.generate(27, prefix: 'something')).to eql("abcdefghijklmnopqrstuvwxyz")
+    end
+
     it "should use the random strategy if asked" do
       Shrinker.configure do
         token_length_strategy :random

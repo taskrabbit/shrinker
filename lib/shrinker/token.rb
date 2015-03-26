@@ -9,13 +9,9 @@ module Shrinker
 
       round = 0
       while need_token
-        token = generate(round, options)
-        if token.nil? || token == ''
-          token = generate(round - 1, options)
-        else
-          need_token = backend.used_token?(token)
-          round += 1
-        end
+        token      = generate(round, options)
+        need_token = backend.used_token?(token)
+        round += 1
       end
 
       token
@@ -24,13 +20,13 @@ module Shrinker
     def generate(round, options = {})
       length   = Shrinker.config.token_length_target || 6
       strategy = Shrinker.config.token_length_strategy || "longer"
-      
+
       prefix = options[:prefix].to_s
       if !prefix || prefix.length == 0
         # need soemthing
         prefix = rand(99999999).to_s
       end
-      
+
       extra = ""
       if strategy.to_s == "random"
         extra= "__#{rand(99999999999)}"
@@ -38,7 +34,8 @@ module Shrinker
         length += round
       end
 
-      Digest::MD5.hexdigest("#{prefix}#{extra}")[-1*length..-1]
+      content = Digest::MD5.hexdigest("#{prefix}#{extra}")
+      content[-1*length..-1] || content
     end
   end
 end
